@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import java.time.LocalDate;
 
 @Entity
@@ -26,5 +27,7 @@ public class User {
 
     @Column(name = "dob")
     private LocalDate dateOfBirth;
+
+    @Max(10)
     private String mobile;
 }
