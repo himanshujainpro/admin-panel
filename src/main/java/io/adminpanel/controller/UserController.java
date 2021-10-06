@@ -18,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserController {
     private static final String NEW_USER_LOG = "New user was created id:{}";
+    private static final String DELETE_USER_LOG = "User deleted successfully";
     private static final Logger logger =
             LoggerFactory.getLogger(UserController.class);
 
@@ -37,5 +38,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.users());
     }
 
+    @Operation(summary = "Delete user by user_id")
+    @DeleteMapping("/users/{user_id}")
+    public ResponseEntity<String> deleteUser(@PathVariable String user_id) {
+        userService.deleteUser(Long.parseLong(user_id));
+        logger.info(DELETE_USER_LOG);
+        return ResponseEntity.status(HttpStatus.OK).body(DELETE_USER_LOG);
+    }
 
 }

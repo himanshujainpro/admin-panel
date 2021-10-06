@@ -1,5 +1,6 @@
 package io.adminpanel.handler;
 
+import io.adminpanel.exception.DataNotExistException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,12 @@ public class AdminPanelErrorHandler {
 //        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
 //    }
 
+
+    @ExceptionHandler(DataNotExistException.class)
+    public ResponseEntity<String> handleDataNotExistException(Exception e) {
+        logger.error(e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity<String> handleAllExceptions(Exception e) {
