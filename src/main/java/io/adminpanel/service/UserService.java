@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.zip.DataFormatException;
 
 @Service
 @AllArgsConstructor
@@ -30,6 +29,16 @@ public class UserService {
     public void deleteUser(long user_id) {
         if (userRepository.existsById(user_id)) {
             userRepository.deleteById(user_id);
-        }else throw new DataNotExistException("User id:"+" "+user_id+" is not exists");
+        } else throw new DataNotExistException("User id:" + " " + user_id + " is not exists");
+    }
+
+    public User updateUser(long user_id, CreateUserDto createUserDto) {
+
+        if (userRepository.existsById(user_id)) {
+            User user = userMapper.dtoToModel(createUserDto);
+            user.setUserId(user_id);
+            return userRepository.save(user);
+        } else throw new DataNotExistException("User id:" + " " + user_id + " is not exists");
+
     }
 }

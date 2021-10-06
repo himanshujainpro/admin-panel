@@ -35,6 +35,7 @@ public class UserController {
     @Operation(summary = "Get the list of all users")
     @GetMapping("/users")
     public ResponseEntity<List<User>> users() {
+        logger.info("fetching list of users from database");
         return ResponseEntity.status(HttpStatus.OK).body(userService.users());
     }
 
@@ -44,6 +45,14 @@ public class UserController {
         userService.deleteUser(Long.parseLong(user_id));
         logger.info(DELETE_USER_LOG);
         return ResponseEntity.status(HttpStatus.OK).body(DELETE_USER_LOG);
+    }
+
+    @Operation(summary = "Update user")
+    @PutMapping("/users/{user_id}")
+    public ResponseEntity<User> updateUser(@PathVariable String user_id, @RequestBody CreateUserDto createUserDto) {
+        logger.info("Updating user");
+        final User updatedUser = userService.updateUser(Long.parseLong(user_id), createUserDto);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedUser);
     }
 
 }
