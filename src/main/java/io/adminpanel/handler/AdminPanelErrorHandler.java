@@ -15,12 +15,12 @@ public class AdminPanelErrorHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(AdminPanelErrorHandler.class);
 
-    @ExceptionHandler({ConstraintViolationException.class})
-    public ResponseEntity<String> handleConstraintViolation(
-            ConstraintViolationException exception, WebRequest request) {
-        logger.error(exception.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
-    }
+//    @ExceptionHandler({ConstraintViolationException.class})
+//    public ResponseEntity<String> handleConstraintViolation(
+//            ConstraintViolationException exception, WebRequest request) {
+//        logger.error(exception.getMessage());
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+//    }
 
 
     @ExceptionHandler({Exception.class})

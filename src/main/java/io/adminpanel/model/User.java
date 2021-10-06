@@ -28,6 +28,5 @@ public class User {
     @Column(name = "dob")
     private LocalDate dateOfBirth;
 
-    @Max(10)
     private String mobile;
 }
