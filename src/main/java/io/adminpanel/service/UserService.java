@@ -26,6 +26,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public List<User> users(String city) {
+        return userRepository.getUsersByCity(city);
+    }
+
     public void deleteUser(long user_id) {
         if (userRepository.existsById(user_id)) {
             userRepository.deleteById(user_id);

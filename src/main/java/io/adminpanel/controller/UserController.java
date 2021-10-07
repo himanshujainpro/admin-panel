@@ -32,11 +32,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
-    @Operation(summary = "Get the list of all users")
+    @Operation(summary = "Get the list of all users by city name (Optional)")
     @GetMapping("/users")
-    public ResponseEntity<List<User>> users() {
+    public ResponseEntity<List<User>> users(@RequestParam(required = false, name = "city") String city) {
         logger.info("fetching list of users from database");
-        return ResponseEntity.status(HttpStatus.OK).body(userService.users());
+        if (city == null || city.isEmpty()) return ResponseEntity.status(HttpStatus.OK).body(userService.users());
+        else return ResponseEntity.status(HttpStatus.OK).body(userService.users(city));
     }
 
     @Operation(summary = "Delete user by user_id")
